@@ -1,6 +1,6 @@
 package postgres
 
-// SQL query constants for permission management.
+// SQL query constants for permission and resource management.
 
 const (
 	// QueryHasPermission checks if a permission grant exists.
@@ -22,5 +22,17 @@ const (
 	QueryRevokePermission = `
 		DELETE FROM permission_grants
 		WHERE subject_id = $1 AND resource_id = $2 AND permission_name = $3
+	`
+
+	// QueryCreateResource inserts a resource with an optional parent.
+	QueryCreateResource = `
+		INSERT INTO resources (id, name, parent)
+		VALUES ($1, $2, $3)
+	`
+
+	// QueryDeleteResource removes a resource by ID.
+	QueryDeleteResource = `
+		DELETE FROM resources
+		WHERE id = $1
 	`
 )
